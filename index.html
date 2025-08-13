@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>College Sports App Launch</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background-color: #EBE8D8; }
+    .blur-bg {
+      filter: blur(10px) brightness(0.8);
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body class="text-[#475161]">
+
+  <!-- Splash Screen -->
+  <div id="splash" class="fixed inset-0 flex flex-col items-center justify-center bg-[#475161] text-white z-50 transition-opacity duration-1000">
+    <h1 class="text-4xl font-bold mb-4">🏆 College Sports App</h1>
+    <p class="text-lg">Get ready for the big launch...</p>
+  </div>
+
+  <!-- Main Content -->
+  <div id="main-content" class="hidden">
+    <section class="relative h-screen flex items-center justify-center text-center">
+      <!-- Background Image -->
+      <img src="your-screenshot.jpg" alt="App Preview" class="absolute inset-0 w-full h-full object-cover blur-bg opacity-70" />
+      
+      <!-- Countdown Card -->
+      <div class="relative z-10 bg-white p-8 rounded-2xl shadow-lg max-w-md">
+        <h1 class="text-3xl font-bold mb-4 text-[#475161]">Launching Soon 🎉</h1>
+        <div id="countdown" class="text-4xl font-bold text-[#FF614C] mb-4"></div>
+        <p class="text-[#475161]">Stay tuned for the official release of our College Sports App.</p>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Countdown Setup
+    const launchDate = new Date("2025-08-13T18:40:00").getTime();
+    const countdownEl = document.getElementById("countdown");
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = launchDate - now;
+
+      if (distance <= 0) {
+        countdownEl.textContent = "We Are Live!";
+        countdownEl.classList.remove("text-[#FF614C]");
+        countdownEl.classList.add("text-[#BFDC36]");
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Splash Screen Logic
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("splash").classList.add("opacity-0");
+        setTimeout(() => {
+          document.getElementById("splash").classList.add("hidden");
+          document.getElementById("main-content").classList.remove("hidden");
+        }, 1000);
+      }, 3000); // 3 seconds splash
+    });
+  </script>
+
+</body>
+</html>
